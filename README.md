@@ -26,6 +26,16 @@ Expected results:
 
 The demo starts with a committed, clean baseline. apiheal keeps this checkout
 unchanged and saves run artifacts outside it under `~/.apiheal/runs`.
-Container verification and PR publishing are not implemented in the current
-apiheal release. Do not install dependencies or make live provider calls to
-exercise these static/demo features.
+To verify the supported migration after installing/starting Linux Docker:
+
+```powershell
+.\.venv\Scripts\apiheal.exe setup-runner
+.\.venv\Scripts\apiheal.exe repair ..\apiheal-demo --verify
+```
+
+Verification uses the actual SDKs with a local mock HTTP server inside isolated
+containers. It does not call a live provider or require provider credentials.
+Missing Docker/images or failed/indeterminate checks stop verification.
+
+Draft PR publishing is implemented with `--verify --pr` for a real GitHub
+checkout. This local demo has no GitHub remote, so it cannot publish a PR.
